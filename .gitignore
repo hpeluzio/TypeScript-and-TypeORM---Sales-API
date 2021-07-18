@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+node_modules/
+build/
+temp/
+.env
+coverage
+ormconfig.json
+dist
+
+# Apaga tudo na pasta upload mas preserva o arquivo .gitkeep
+uploads/*
+!uploads/.gitkeep
