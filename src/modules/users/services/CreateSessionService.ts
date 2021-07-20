@@ -3,18 +3,24 @@ import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import { UsersRepository } from '../typeorm/repositories/UsersRepository';
 import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 
 interface IRequest {
   email: string;
   password: string;
 }
 
-// interface IResponse {
-//   user: User;
-// }
+interface IUser extends User {
+  password?: string;
+}
+
+interface IResponse {
+  user: IUser;
+  token: string;
+}
 
 class CreateSessionService {
-  public async execute(data: IRequest): Promise<User | undefined> {
+  public async execute(data: IRequest): Promise<IResponse> {
     console.log('OKOKOK');
     const usersRepository = getCustomRepository(UsersRepository);
 
@@ -29,9 +35,18 @@ class CreateSessionService {
       throw new AppError('Incorrect email/password', 401);
     }
 
-    const { password, ...user } = userExists;
+    const token = sign({}, 'f39ae121bbbe65eabfe4dcb1fc55bfae', {
+      subject: userExists.id,
+      expiresIn: '365d',
+    });
 
-    return user;
+    const { password, ...userWithoutPassword } = userExists;
+
+    // return userExists;
+    return {
+      user: userWithoutPassword,
+      token: token,
+    };
   }
 }
 
