@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import UserController from '../controllers/UserController';
+import isAuthenticated from '../middlewares/isAuthenticated';
 
 // import createUserValidator from './validators/createUserValidator';
 
@@ -8,7 +9,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 const usersRouter = Router();
 const userController = new UserController();
 
-usersRouter.get('/', userController.index);
+usersRouter.get('/', isAuthenticated, userController.index);
 // usersRouter.get(
 //   '/:id',
 //   celebrate({

@@ -4,18 +4,19 @@ import User from '../typeorm/entities/User';
 import { UsersRepository } from '../typeorm/repositories/UsersRepository';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import authConfig from '@config/auth';
 
 interface IRequest {
   email: string;
   password: string;
 }
 
-interface IUser extends User {
-  password?: string;
-}
+// interface IUser extends User {
+//   password?: string;
+// }
 
 interface IResponse {
-  user: IUser;
+  user: User;
   token: string;
 }
 
@@ -37,14 +38,14 @@ class CreateSessionService {
 
     const token = sign({}, 'f39ae121bbbe65eabfe4dcb1fc55bfae', {
       subject: userExists.id,
-      expiresIn: '365d',
+      expiresIn: authConfig.jwt.expiresIn,
     });
 
-    const { password, ...userWithoutPassword } = userExists;
+    // const { password, ...userWithoutPassword } = userExists;
 
     // return userExists;
     return {
-      user: userWithoutPassword,
+      user: userExists,
       token: token,
     };
   }
