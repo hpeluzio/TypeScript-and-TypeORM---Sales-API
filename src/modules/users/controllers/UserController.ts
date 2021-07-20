@@ -12,6 +12,7 @@ export default class UserController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     const createUserService = new CreateUserService();
+    console.log('aqui');
     const user = await createUserService.execute(request.body);
     return response.status(200).json(user);
   }

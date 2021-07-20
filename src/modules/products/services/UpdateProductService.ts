@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Product from '../typeorm/entities/Product';
-import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
+import { ProductsRepository } from '../typeorm/repositories/ProductsRepository';
 
 interface IRequest {
   id: string;
@@ -17,15 +17,15 @@ class UpdateProductService {
     price,
     quantity,
   }: IRequest): Promise<Product | undefined> {
-    const productRepository = getCustomRepository(ProductRepository);
+    const productsRepository = getCustomRepository(ProductsRepository);
 
-    const product = await productRepository.findOne(id);
+    const product = await productsRepository.findOne(id);
 
     if (!product) {
       throw new AppError('Product not founded');
     }
 
-    const productExists = await productRepository.findByName(name);
+    const productExists = await productsRepository.findByName(name);
 
     if (productExists) {
       throw new AppError('There is already a product with this name');
@@ -35,7 +35,7 @@ class UpdateProductService {
       product.quantity = quantity;
     }
 
-    await productRepository.save(product);
+    await productsRepository.save(product);
 
     return product;
   }
