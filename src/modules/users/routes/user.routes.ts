@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import UserController from '../controllers/UserController';
-import isAuthenticated from '../middlewares/isAuthenticated';
+import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
 // import createUserValidator from './validators/createUserValidator';
 
