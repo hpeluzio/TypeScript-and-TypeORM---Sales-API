@@ -7,7 +7,11 @@ export default function (
   response: Response,
   next: NextFunction,
 ): Response {
+  // ERROR LOG
+  // console.log('error:: ', error);
+
   if (error instanceof AppError) {
+    console.log(error);
     return response.status(error.statusCode).json({
       status: error.statusCode,
       message: error.message,
