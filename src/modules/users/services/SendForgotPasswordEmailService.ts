@@ -17,6 +17,8 @@ export default class SendForgotPasswordEmailService {
       throw new AppError('User does not exists.');
     }
 
+    console.log('userExists: ', userExists);
+
     const userToken = await userTokensRepository.generate(userExists.id);
 
     console.log(userToken);
