@@ -11,7 +11,7 @@ export default function (
   // console.log('error:: ', error);
 
   if (error instanceof AppError) {
-    console.log(error);
+    console.log('error ->', error);
     return response.status(error.statusCode).json({
       status: error.statusCode,
       message: error.message,

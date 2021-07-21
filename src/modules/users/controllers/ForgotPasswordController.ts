@@ -11,6 +11,6 @@ export default class ForgotPasswordController {
 
     // const createUserService = new CreateUserService();
     // const user = await createUserService.execute(email);
-    return response.status(204).json();
+    return response.status(200).json();
   }
 }
