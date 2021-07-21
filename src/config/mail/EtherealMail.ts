@@ -11,13 +11,13 @@ interface ITemplateVariable {
 }
 
 interface IParseMailTemplate {
-  template: string;
+  file: string;
   variables: ITemplateVariable;
 }
 
 interface ISendMail {
   to: IMailContact;
-  body: IMailContact;
+  from: IMailContact;
   subject: string;
   templateData: IParseMailTemplate;
 }
@@ -52,7 +52,7 @@ export default class EtherealMail {
         name: to?.name || 'Equipe API Vendas',
         address: from?.email || 'equipe@apivendas.com.br',
       },
-      subject: subject,
+      subject,
       html: await mailTemplate.parse(templateData),
     });
 
