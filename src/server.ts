@@ -5,7 +5,7 @@ import cors from 'cors';
 import { errors } from 'celebrate';
 import routes from './shared/http/routes';
 import '@shared/typeorm';
-import handleErrorsMiddleware from '@shared/errors/handleErrorsMiddleware';
+import handleErrorsMiddleware from '@shared/http/middlewares/handleErrorsMiddleware';
 import uploadConfig from '@config/upload';
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(routes);
 
 app.use(errors());
 
-// app.use(handleErrorsMiddleware);
+app.use(handleErrorsMiddleware);
 
 app.listen(3333, () => {
   console.log('Server started on port 3333!');

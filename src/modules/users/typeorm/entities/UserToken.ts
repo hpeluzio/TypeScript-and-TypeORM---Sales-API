@@ -2,23 +2,22 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('products')
-export default class Product {
+@Entity('user_tokens')
+export default class UserToken {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  name: string;
+  @Generated('uuid')
+  token: string;
 
-  @Column('decimal')
-  price: number;
-
-  @Column('decimal')
-  quantity: number;
+  @Column()
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;

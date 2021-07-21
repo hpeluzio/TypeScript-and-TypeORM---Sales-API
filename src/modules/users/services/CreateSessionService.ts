@@ -22,7 +22,6 @@ interface IResponse {
 
 class CreateSessionService {
   public async execute(data: IRequest): Promise<IResponse> {
-    console.log('OKOKOK');
     const usersRepository = getCustomRepository(UsersRepository);
 
     const userExists = await usersRepository.findByEmail(data.email);
@@ -36,7 +35,7 @@ class CreateSessionService {
       throw new AppError('Incorrect email/password', 401);
     }
 
-    const token = sign({}, 'f39ae121bbbe65eabfe4dcb1fc55bfae', {
+    const token = sign({}, authConfig.jwt.secret, {
       subject: userExists.id,
       expiresIn: authConfig.jwt.expiresIn,
     });

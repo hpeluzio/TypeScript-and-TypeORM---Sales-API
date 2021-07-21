@@ -21,7 +21,6 @@ export default async function CreateProductValidator(
         message = message + `${er.constraints[key]} `;
       }
     }
-    console.log(message);
 
     throw new AppError(message, 400);
   }
