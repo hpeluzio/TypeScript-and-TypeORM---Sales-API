@@ -1,7 +1,5 @@
 import { Router } from 'express';
 
-import UserController from '../controllers/UserController';
-import UserAvatarController from '../controllers/UserAvatarController';
 import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
 import { celebrate, Joi, Segments } from 'celebrate';
@@ -12,18 +10,10 @@ const userProfileController = new UserProfileController();
 
 userProfileRouter.use(isAuthenticated);
 
-userProfileRouter.post(
-  '/show',
-  celebrate({
-    [Segments.BODY]: {
-      user_id: Joi.string().uuid().required(),
-    },
-  }),
-  userProfileController.show,
-);
+userProfileRouter.get('/', userProfileController.show);
 
-userProfileRouter.put(
-  '/update',
+userProfileRouter.patch(
+  '/',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -38,7 +28,7 @@ userProfileRouter.put(
         }),
     },
   }),
-  userProfileController.show,
+  userProfileController.update,
 );
 
 export default userProfileRouter;

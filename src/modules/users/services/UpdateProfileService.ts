@@ -20,8 +20,8 @@ export default class UpdateProfileService {
     password,
     old_password,
   }: IRequest): Promise<User> {
+    console.log('AQUI');
     const usersRepository = getCustomRepository(UsersRepository);
-
     const user = await usersRepository.findById(user_id);
 
     if (!user) {
