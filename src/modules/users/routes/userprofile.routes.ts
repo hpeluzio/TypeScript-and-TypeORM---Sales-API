@@ -12,7 +12,7 @@ userProfileRouter.use(isAuthenticated);
 
 userProfileRouter.get('/', userProfileController.show);
 
-userProfileRouter.patch(
+userProfileRouter.put(
   '/',
   celebrate({
     [Segments.BODY]: {

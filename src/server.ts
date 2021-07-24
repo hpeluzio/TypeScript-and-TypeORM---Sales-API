@@ -7,8 +7,11 @@ import routes from './shared/http/routes';
 import '@shared/typeorm';
 import handleErrorsMiddleware from '@shared/http/middlewares/handleErrorsMiddleware';
 import uploadConfig from '@config/upload';
+import { limiter } from '@config/rate-limit';
 
 const app = express();
+
+app.use(limiter);
 
 app.use(cors());
 
