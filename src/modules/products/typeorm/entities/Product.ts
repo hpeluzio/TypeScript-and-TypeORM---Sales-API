@@ -1,7 +1,10 @@
+import OrdersProducts from '../../../orders/typeorm/entities/OrdersProducts';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -19,6 +22,10 @@ export default class Product {
 
   @Column('decimal')
   quantity: number;
+
+  @OneToMany(() => OrdersProducts, order_products => order_products.product)
+  @JoinColumn({ name: 'product_id' })
+  order_products: OrdersProducts[];
 
   @CreateDateColumn()
   created_at: Date;

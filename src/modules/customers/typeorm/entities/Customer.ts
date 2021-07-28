@@ -2,9 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  // JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import Order from '@modules/orders/typeorm/entities/Order';
 
 @Entity('customers')
 export default class Customer {
@@ -17,11 +21,13 @@ export default class Customer {
   @Column()
   email: string;
 
-  // @Column()
-  // password: string;
+  // DOC
+  // @OneToMany(() => Photo, photo => photo.user)
+  // photos: Photo[];
 
-  // @Column({ nullable: true })
-  // avatar: string;
+  @OneToMany(() => Order, order => order.customer)
+  // @JoinColumn({ name: 'customer_id' })
+  orders: Order[];
 
   @CreateDateColumn()
   created_at: Date;
