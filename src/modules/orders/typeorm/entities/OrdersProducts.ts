@@ -1,4 +1,5 @@
 import {
+  Column,
   // Column,
   CreateDateColumn,
   Entity,
@@ -28,6 +29,18 @@ export default class OrdersProducts {
   @ManyToOne(() => Product, product => product.order_products)
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  @Column('decimal')
+  price: number;
+
+  @Column('int')
+  quantity: number;
+
+  @Column()
+  order_id: string;
+
+  @Column()
+  product_id: string;
 
   @CreateDateColumn()
   created_at: Date;
