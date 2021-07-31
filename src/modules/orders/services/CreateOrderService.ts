@@ -1,7 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 import { OrdersRepository } from '../typeorm/repositories/OrdersRepository';
 import AppError from '@shared/errors/AppError';
-import Customer from '@modules/customers/typeorm/entities/Customer';
 import Order from '../typeorm/entities/Order';
 import CustomersRepository from '@modules/customers/typeorm/repositories/CustomersRepository';
 import { ProductsRepository } from '@modules/products/typeorm/repositories/ProductsRepository';
@@ -17,7 +16,7 @@ interface IRequest {
   products: IProduct[];
 }
 
-class CreateOrderService {
+export default class CreateOrderService {
   public async execute({ customer_id, products }: IRequest): Promise<Order> {
     const ordersRepository = getCustomRepository(OrdersRepository);
     const customersRepository = getCustomRepository(CustomersRepository);
@@ -82,5 +81,3 @@ class CreateOrderService {
     return order;
   }
 }
-
-export default CreateOrderService;
